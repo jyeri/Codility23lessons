@@ -28,6 +28,7 @@
 
 // in this case order of operatin is to loop thru array, save highest digit and check if duplicates?
 //duplicate check is too slow like this but still works until timeout.
+// added early return when highest number is bigger than array size. still too slow duplicate check
 
 
 int duplicates(int A[], int N);
@@ -49,7 +50,13 @@ int duplicates(int A[], int N)
     while (i < N)
     {
         if (max < A[i])
+        {
             max = A[i];
+            if (max > N)
+            {
+                return 1;
+            }
+        }
         j = i + 1;
         while (j < N)
         {
