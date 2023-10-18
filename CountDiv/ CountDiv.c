@@ -29,24 +29,24 @@
 // skip all the values that K is bigger than A?
 // IF A % K == 0, then next divisible cant be lower than A + K?
 
-int solution(int A, int B, int K)
-{
-    int res = 0;
-
-    if (A < K)
-        A = K;
-    while (A < B + 1)
-    {
-        if (A % K == 0)
-        {
-            res++;
-            A = A + A;
-        }
-        else
-            A++;
-    }
-    return res;
-}
+// int solution(int A, int B, int K)
+// {
+//     int res = 0;
+// 
+//     if (A < K)
+//         A = K;
+//     while (A < B + 1)
+//     {
+//         if (A % K == 0)
+//         {
+//             res++;
+//             A = A + A;
+//         }
+//         else
+//             A++;
+//     }
+//     return res;
+// }
 
 //failed tests:
 // [0, 2000000000, 1]
