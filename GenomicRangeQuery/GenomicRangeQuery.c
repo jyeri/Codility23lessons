@@ -29,28 +29,50 @@ struct Results {
   int M; // Length of the array
 };
 
+// you can write to stdout for debugging purposes, e.g.
+// printf("this is a debug message\n");
+
 struct Results solution(char *S, int P[], int Q[], int M)
 {
-    int res[M + 1];
+    int *res;
     int low = 5;
     int x = 0;
     int start = 0;
     int howmany = 0;
-    struct result;
+    struct Results result;
+
+    res = malloc(sizeof(int) * M + 1);
     
+    start = P[x];
+    howmany = Q[x] - P[x];
 
     while (x < M)
     {
         start = P[x];
         howmany = Q[x] - P[x];
-        while (howmany > 0)
+        while (howmany > -1)
         {
-            if (low < S[P[start + howmany]])
-                low = S[P[start + howmany]];
+            if (S[start + howmany] == 'A')
+                S[start + howmany] = (int)1;
+            else if (S[start + howmany] == 'C')
+                S[start + howmany] = (int)2;
+            else if (S[start + howmany] == 'G')
+                S[start + howmany] = (int)3;
+            else if (S[start + howmany] == 'T')
+                S[start + howmany] = (int)4;
+            howmany--;
+        }
+        howmany = Q[x] - P[x];
+        while (howmany >= 0)
+        {
+            if (low > S[start + howmany])
+            {
+                low = (int)S[start + howmany];
+            }
             howmany--;
         }
         res[x] = low;
-        low = 0;
+        low = 5;
         x++;
     }
     result.A = res;
