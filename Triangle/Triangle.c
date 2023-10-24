@@ -35,3 +35,5 @@ int solution(int A[], int N)
     // else return 0
     return 0;
 }
+
+// there is problem with maxint, can fix by using long instead of int in comp and base.
