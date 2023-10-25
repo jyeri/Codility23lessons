@@ -18,8 +18,32 @@
 // discs 1 and 4 intersect, and both intersect with all the other discs;
 // disc 2 also intersects with discs 0 and 3.
 
+// first idea:
+// iterate whole array A, and check how many overlaps there is, then move on to next index.. in this case something like this:
+// if (x + A[x]) > (i - A[i]) && (x + A[x]) < (i + A[i]); counter++; i++;
+
+// small change: discs complitely inside of other discs also counts :D
+
 
 int solution(int A[], int N)
 {
+    int x = 0;
+    int i = 0;
+    int counter = 0;
 
+    if (N < 2)
+        return 0;
+
+    while (x =< N)
+    {
+        i = x + 1;
+        while (i =< N)
+        {
+            if ((x + A[x]) > (i - A[i]))
+                counter++;
+            i++;
+        }
+        x++;
+    }
+    return counter;
 }
