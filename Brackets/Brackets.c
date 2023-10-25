@@ -22,52 +22,6 @@
 // we go tru the array and keep counter of each pair. if any of them ends up being anything else than 0, we exit
 
 
-// IGNORE:
-
-int solution(char *S)
-{
-    int x1 = 0;
-    int x2 = 0;
-    int x3 = 0;
-    while (*S)
-    {
-        if (*S == '(')
-        {
-            x1++;
-        }
-        else if (*S == '{')
-        {
-            if (x1 != 0 || x2 != 0 )
-                return 0;
-            x3++;
-        }
-        else if (*S == '[')
-        {
-            if (x1 != 0)
-                return 0;
-            x2++;
-        }
-        else if (*S == ')')
-            x1--;
-        else if (*S == '}')
-        {
-            x3--;
-        }
-        else if (*S == ']')
-        {
-            x2--;
-        }
-        if (x1 < 0 || x2 < 0 || x3 < 0)
-            return 0;
-        *S++;      
-    }
-    if (x1 == 0 && x2 == 0 && x3 == 0)
-        return 1;
-    else
-        return 0;
-}
- // ({{({}[]{})}}[]{})
-
 // new try: i need to keep hold on whats top of the stack so everything that has equal ending and closing does not pass
 // took a while to remember how to do the check.
 // basic idea: save every opening bracket in array, when closing bracket comes -> check if previously opened is same. else we have problem
@@ -104,3 +58,49 @@ int solution(char *S)
     // return top what should be 0
 	return (!top);
 }
+
+// IGNORE THE FIRST IDEA:
+
+// int solution(char *S)
+// {
+//     int x1 = 0;
+//     int x2 = 0;
+//     int x3 = 0;
+//     while (*S)
+//     {
+//         if (*S == '(')
+//         {
+//             x1++;
+//         }
+//         else if (*S == '{')
+//         {
+//             if (x1 != 0 || x2 != 0 )
+//                 return 0;
+//             x3++;
+//         }
+//         else if (*S == '[')
+//         {
+//             if (x1 != 0)
+//                 return 0;
+//             x2++;
+//         }
+//         else if (*S == ')')
+//             x1--;
+//         else if (*S == '}')
+//         {
+//             x3--;
+//         }
+//         else if (*S == ']')
+//         {
+//             x2--;
+//         }
+//         if (x1 < 0 || x2 < 0 || x3 < 0)
+//             return 0;
+//         *S++;      
+//     }
+//     if (x1 == 0 && x2 == 0 && x3 == 0)
+//         return 1;
+//     else
+//         return 0;
+// }
+ // ({{({}[]{})}}[]{})
