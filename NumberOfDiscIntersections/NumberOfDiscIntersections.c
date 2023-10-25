@@ -24,6 +24,8 @@
 
 // small change: discs complitely inside of other discs also counts :D
 
+// next set of changes got me to 75%, problems still to fix are overflow with 2 values (store in lonf instead of int?) and effiency in big arrays (time outs with 10000 > N)
+
 
 int solution(int A[], int N)
 {
@@ -34,13 +36,17 @@ int solution(int A[], int N)
     if (N < 2)
         return 0;
 
-    while (x =< N)
+    while (x < N)
     {
         i = x + 1;
-        while (i =< N)
+        while (i < N)
         {
-            if ((x + A[x]) > (i - A[i]))
+            if ((x + A[x]) >= (i - A[i]))
+            {
                 counter++;
+            }
+            if (counter > 100000000)
+                return -1;
             i++;
         }
         x++;
