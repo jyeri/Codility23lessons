@@ -9,8 +9,40 @@
 // First idea is just forget everything i read, and thinking that everytime height changes, i need a new block, yes?
 // no...
 
-int solution(int H[], int N)
+// ok so i had look up from pdf little bit of help.
+// Basic idea:
+// go array from left to right->
+// add starting point in stack & add one block into contruction->
+// incement to next point in array
+// check if were on down hill-> delete from stack everything thats higher (can be made from same block)
+// if its not equal, just skip.
+// if its lower or there is nothing anymore on stack -> make new cuboid and add this point to stack
+// increment until N
+
+int solution(int H[], int N) 
 {
+    int i = 0;
+    int cuboids = 0;
+    int stack[100000];
+    int top = 0;
+    int skip = 0;
 
+    while (i < N)
+    {
+        // there is higher point in top of stack
+        while (top > 0 && stack[top - 1] > H[i])
+            top--;
+        // top of stack is equal height (can be done with same block so skip)
+        if  (top > 0 && stack[top - 1] == H[i])
+            skip++;
+        // other means either stacktop is now 0, or point is lower than stack so we need to make new cuboid and add this point to stack
+        else
+        {
+            cuboids++;
+            stack[top] = H[i];
+            top++;
+        }
+        i++;
+    }
+    return cuboids;
 }
-
