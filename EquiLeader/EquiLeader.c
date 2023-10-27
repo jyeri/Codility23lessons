@@ -23,11 +23,21 @@
 
 // fast idea after doing Dominator. Do everything just like last time, but when deciding if it dominator, save the middle divider?
 
+// For example, for the input [1, 2, 3, 4, 5] the solution returned a wrong answer (got 4 expected 0).
+
+// so same steps ad dominator, but instead of retuning index of the last dominator
+// -> go to loop to iterate the array once more
+// -> if index == saved leader, increment leadercount
+// -> if there is equal amount of leaders before and after index, increment result.
+// -> return result
+
 int solution(int A[], int N) 
 {
     int B[N];
     int counter = 0;
     int i = 0;
+    int eqlead = 0;
+    int res = 0;
 
     while(i < N)
     {
@@ -54,12 +64,14 @@ int solution(int A[], int N)
         }
         i++;
     }
-    if (N / 2 < counter)
+    i = 0;
+    while (i < N)
     {
-        i = 0;
-        while(i < counter / 2)
-            i++;
-        return i;
+        if (A[i] == B[N])
+            eqlead += 1;
+        if ((eqlead > (i + 1) /2) && ((counter - eqlead) > ((N - i - 1) / 2)))
+            res++;
+        i++;
     }
-    return -1;
+    return res;
 }
