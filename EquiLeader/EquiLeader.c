@@ -21,7 +21,45 @@
 // 
 // that, given a non-empty array A consisting of N integers, returns the number of equi leaders.
 
-int solution(int A[], int N)
-{
+// fast idea after doing Dominator. Do everything just like last time, but when deciding if it dominator, save the middle divider?
 
+int solution(int A[], int N) 
+{
+    int B[N];
+    int counter = 0;
+    int i = 0;
+
+    while(i < N)
+    {
+        if(B[N] == A[i])
+            counter++;
+        else if (counter == 0)
+        {
+            B[N] = A[i];
+            counter = 1;
+        }
+        else 
+        {
+            counter--;
+        }
+        i++;
+    }
+    i = 0;
+    counter = 0;
+    while(i < N)
+    {
+        if (A[i] == B[N])
+        {
+            counter++;
+        }
+        i++;
+    }
+    if (N / 2 < counter)
+    {
+        i = 0;
+        while(i < counter / 2)
+            i++;
+        return i;
+    }
+    return -1;
 }
