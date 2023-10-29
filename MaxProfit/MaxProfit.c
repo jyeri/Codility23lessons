@@ -26,7 +26,42 @@
 // first idea is just to iterate and remember high && low -> problem1: if high price is before low buy price, problem2: idk
 // possible solution: save first low and first high. before erasing them always compare it to upcoming values.
 
-int solution(int A[], int N)
-{
+// so what were looking for is start date-> maximum profit
+// we can start declaring that its first day in beginning and "make a purchase"
+// iterate the array until its either lower point than saved one
+//      -> save the new lowpoint
+// or until its new max selling point
+//      -> save new maxpoint
+// we save the profit and compare it to last saved one
+//      -> if its higher maxprofit = profit
+// return maxprofit
 
+int solution(int A[], int N) 
+{
+    int maxprofit = 0;
+    int i = 0;
+    int profit = 0;
+    int min = A[i];
+    int max = A[i];
+
+    // iterate array
+    while (i < N)
+    {
+        // save new lowpoint and reset pointers
+        if (min > A[i])
+        {
+            min = A[i];
+            max = A[i];
+        }
+        // save new highpoint
+        else if (max < A[i])
+            max = A[i];
+        // calculate current profit
+        profit = max - min;
+        // save possible new maxprofit
+        if (profit > maxprofit)
+            maxprofit = profit;
+        i++;
+    }
+    return maxprofit;
 }
