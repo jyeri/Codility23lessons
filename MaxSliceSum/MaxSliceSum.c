@@ -19,32 +19,41 @@
 // (0, 1) is a slice of A that has sum 5,
 // no other slice of A has sum greater than (0, 1).
 
+// FIX LIST:
+// NEGATIVES -> fixed with using bool instead of int as condition, next problem is negatives that doesnt make the slice too small
+// SAW
+
 int solution(int A[], int N)
 {
-    int maxslice = 0;
+    int maxslice = -2147483648;
     int i = 0;
-    int min = -1;
+    int min = 0;
+    bool minset = false;
 
     // iterate array
     while (i < N)
     {
 //        printf("min: %d, maxs: %d, A[i]: %d, i: %d \n", min, maxslice, A[i], i);
         // save new starting slice
-        if (min < 0)
+        if (minset == false)
         {
             min = A[i];
+            minset = true;
         }
         else
         {
-//            printf("ADDING: %d + %d ", min, A[i]);
+ //           printf("ADDING: %d + %d ", min, A[i]);
             min = min + A[i];
-//            printf("= %d \n", min);
+ //           printf("= %d \n", min);
         }
         // save possible new maxslice
         if (min > maxslice)
             maxslice = min;
         if (A[i] < 0)
-            min = -69;
+        {
+            min = 0;
+            minset = false;
+        }
         i++;
     }
     return maxslice;
