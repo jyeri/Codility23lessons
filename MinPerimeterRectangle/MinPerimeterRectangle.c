@@ -16,7 +16,46 @@
 // 
 // that, given an integer N, returns the minimal perimeter of any rectangle whose area is exactly equal to N.
 
+// 70%, small problems in examples seen belove
+// -> 100% problem was fixed with counting also x * x
+// -> also hardcoded of area of 1
+
+#include <limits.h>
+
 int solution(int N)
 {
+    int i;
+    int x;
+    int tmpres = INT_MAX;
+    int res = INT_MAX;
 
+    i = 1;
+    x = N;
+    if (N == 1)
+        res = 4;
+    while(i <= x)
+    {
+//        printf("VALUES IN ROUND %d:\n", i);
+        if (i * x == N)
+        {
+            tmpres = (2 * (x + i));
+        }
+        if (tmpres < res)
+            res = tmpres;
+//        printf("i: %d, x: %d, res: %d \n\n", i, x, res);
+        i++;
+        x = N / i;
+    }
+    return res;
 }
+
+//1 = 4 works
+//36 = 24 works
+//48 = 28 works
+//101 = 204 works
+//1234 = 1238 works
+//4564320 = 8552 works
+//14486451 = 30972904 wrong res: 1379704
+//100,000,000 = 40000 works
+//982,451,653 = 1964903308 works
+//1,000,000,000 = 126500 works
