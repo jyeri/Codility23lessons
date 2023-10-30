@@ -33,6 +33,8 @@
 // i believe problem is that sqrtMAX_INT * sqrtMAX_INT goes overboard, but ill leave fixing for later, effiency is already O(sqrt(N))
 // did in fact fix it by int -> long. jesus fuck im stupid
 
+// 100%
+
 int solution(int N)
 {
     long i = 1;
