@@ -12,5 +12,15 @@
 
 int solution(int N)
 {
-    
+    int i = 1;
+    int res = 0;
+    while(i <= N)
+    {
+        if(N % i == 0)
+        {
+            res++;
+        }
+        i++;
+    }
+    return res;
 }
