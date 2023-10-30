@@ -31,10 +31,11 @@
 
 // 92%, effiency still bugging. reaches 6s with MAXINT, why?
 // i believe problem is that sqrtMAX_INT * sqrtMAX_INT goes overboard, but ill leave fixing for later, effiency is already O(sqrt(N))
+// did in fact fix it by int -> long. jesus fuck im stupid
 
 int solution(int N)
 {
-    int i = 1;
+    long i = 1;
     int res = 0;
     // as long as squareroot of N
     while(i * i < N)
