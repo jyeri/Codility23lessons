@@ -27,6 +27,11 @@
 // 
 // that, given a non-empty array A consisting of N integers, returns the maximal sum of any double slice.
 
+// could i use last one exercise?
+// count all positive big slices? 
+// cant see how to be done O(N
+// can i use build in fmax() since max () is not working in c
+
 int solution(int A[], int N)
 {
 
