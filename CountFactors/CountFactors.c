@@ -30,6 +30,7 @@
 // next try with efficiency 
 
 // 92%, effiency still bugging. reaches 6s with MAXINT, why?
+// i believe problem is that sqrtMAX_INT * sqrtMAX_INT goes overboard, but ill leave fixing for later, effiency is already O(sqrt(N))
 
 int solution(int N)
 {
