@@ -26,11 +26,16 @@
 // Fixed with fail checks for slices that dips in middle
 // checked the perfect pdf, didnt understand shit since my own defined max() failed me.
 
+#include <stdbool.h>
+#include <limits.h>
+
+
 int solution(int A[], int N)
 {
     int i = 0;
-    int max = 0;
+    int max = INT_MIN;
     int slice = 0;
+    bool posi = false;
     // continue keeps fucking with my testing so ill make dump value that unused for real reasons (sorry)
     int dump = 0;
 
@@ -38,18 +43,31 @@ int solution(int A[], int N)
     {
         // if positive always just add on current slice
         if (A[i] > 0)
-            slice = slice + A[i];
+        {
+            // check if last one was negative and havent seen positive number yet
+            if (posi == false)
+                slice = A[i];
+            else
+                slice = slice + A[i];
+            posi = true;
+        }
         else
         {
             // slice is 0 means we have not found starting position for slice or last one was < 0
-            if (slice == 0)
+            if (slice == 0 && posi == true)
                 dump++; // this should be continue;
             // slice + index < 0 means not max slice can have this
-            else if (slice + A[i] < 0)
+            else if (slice + A[i] < 0 && posi == true)
                 slice = 0;
             // add on the slice if it grows back up
             else
-                slice = slice + A[i];
+            {
+                // have we seen positive number check
+                if (posi == true)
+                    slice = slice + A[i];
+                else
+                    slice = A[i];
+            }
         }
         if (slice > max)
             max = slice;
