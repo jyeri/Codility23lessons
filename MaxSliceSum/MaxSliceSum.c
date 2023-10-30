@@ -20,42 +20,41 @@
 // no other slice of A has sum greater than (0, 1).
 
 // FIX LIST:
-// NEGATIVES -> fixed with using bool instead of int as condition, next problem is negatives that doesnt make the slice too small
+// NEGATIVES -> fixed with using bool instead of int as condition, next problem is negatives that doesnt make the slice too small [3, -2, 3]
 // SAW
+
+// Fixed with fail checks for slices that dips in middle
+// checked the perfect pdf, didnt understand shit since my own defined max() failed me.
 
 int solution(int A[], int N)
 {
-    int maxslice = -2147483648;
     int i = 0;
-    int min = 0;
-    bool minset = false;
+    int max = 0;
+    int slice = 0;
+    // continue keeps fucking with my testing so ill make dump value that unused for real reasons (sorry)
+    int dump = 0;
 
-    // iterate array
     while (i < N)
     {
-//        printf("min: %d, maxs: %d, A[i]: %d, i: %d \n", min, maxslice, A[i], i);
-        // save new starting slice
-        if (minset == false)
-        {
-            min = A[i];
-            minset = true;
-        }
+        // if positive always just add on current slice
+        if (A[i] > 0)
+            slice = slice + A[i];
         else
         {
- //           printf("ADDING: %d + %d ", min, A[i]);
-            min = min + A[i];
- //           printf("= %d \n", min);
+            // slice is 0 means we have not found starting position for slice or last one was < 0
+            if (slice == 0)
+                dump++; // this should be continue;
+            // slice + index < 0 means not max slice can have this
+            else if (slice + A[i] < 0)
+                slice = 0;
+            // add on the slice if it grows back up
+            else
+                slice = slice + A[i];
         }
-        // save possible new maxslice
-        if (min > maxslice)
-            maxslice = min;
-        if (A[i] < 0)
-        {
-            min = 0;
-            minset = false;
-        }
+        if (slice > max)
+            max = slice;
         i++;
     }
-    return maxslice;
-
+    dump = 0; // just because
+    return max;
 }
