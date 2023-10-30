@@ -10,17 +10,42 @@
 // 
 // For example, given N = 24, the function should return 8, because 24 has 8 factors, namely 1, 2, 3, 4, 6, 8, 12, 24. There are no other factors of 24.
 
+//this solution is easiest and O(N)
+
+// int solution(int N)
+// {
+//     int i = 1;
+//     int res = 0;
+//     while(i <= N)
+//     {
+//         if(N % i == 0)
+//         {
+//             res++;
+//         }
+//         i++;
+//     }
+//     return res;
+// }
+
+// next try with efficiency 
+
+// 92%, effiency still bugging. reaches 6s with MAXINT, why?
+
 int solution(int N)
 {
     int i = 1;
     int res = 0;
-    while(i <= N)
+    // as long as squareroot of N
+    while(i * i < N)
     {
+        // if mod is 0
         if(N % i == 0)
-        {
-            res++;
-        }
+            // up by 2 because we found 2 divisors then (1x12 and 12x1 etc..)
+            res = res + 2;
         i++;
     }
+    // perfect sqrt check (6X6 or smth)
+    if (i * i == N)
+        res++;
     return res;
 }
