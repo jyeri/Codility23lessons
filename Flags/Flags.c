@@ -41,7 +41,38 @@
 // 
 // that, given a non-empty array A of N integers, returns the maximum number of flags that can be set on the peaks of the array.
 
-int solution(int A[], int N)
+// this solution is 33%, fails in various cases. back to drawing board
+#include <math.h>
+
+int solution(int A[], int N) 
 {
-    
+    int i = 1;
+    int peaks = 0;
+    int flags = 0;
+    int result = 0;
+
+    // no peaks in less that 3
+    if (N < 3)
+        return 0;
+    // calculate amount of peaks, what also means amount of maximum possible flags? start can be "peak"
+    while (i < N)
+    {
+        if (A[i] > fmax(A[i + 1], A[i - 1]))
+            peaks++;
+        i++;
+    }
+    flags = peaks;
+    i = 1;
+    // count how many flags there can be
+    while (i < N && flags > 0)
+    {
+        if (A[i] > fmax(A[i + 1], A[i - 1]))
+        {
+            result++;
+            i = i + flags;
+        }
+        else
+            i++;
+    }
+    return result;
 }
