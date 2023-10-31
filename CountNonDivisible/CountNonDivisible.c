@@ -36,24 +36,19 @@
 // the we could just iterate the array and add all the divisors from another array?
 // something like this:
 
-
-// you can write to stdout for debugging purposes, e.g.
-// printf("this is a debug message\n");
-
-// too heavy infulence of stack overflow, needs to refresh my memory
+// mad code bit more clear to me atleast, added some comments and deleted extra allocation. still 100%
 
 struct Results solution(int A[], int N)
 {
     struct Results  res;
     int *amount;
-    int *second;
+    int divisoramt = 0;
     int *resarr;
     int i = 0;
-    int j = 0;
+    int j = 1;
 
     // array for amount of occurances of number
     amount = (int *)calloc(2 * N + 1, sizeof(int));
-    second = (int *)calloc(2 * N + 1, sizeof(int));
     // array for results
     resarr = (int *)calloc(N + 1, sizeof(int));
 
@@ -65,35 +60,34 @@ struct Results solution(int A[], int N)
     }
     i = 0;
 
-    // looping until max value in array (integer within the range [1..2 * N])
-    while ((2 * i) < (2 * N + 1))
+    // count divisors
+    while (i < N)
     {
-//        printf("i: %d, amount[i]: %d \n", i, amount[i]);
-        //if there is occurances for this number
-        if (amount[i] != 0) 
+        divisoramt = 0;
+        j = 1;
+        // j < sqrt value at index
+        while (j * j <= A[i])
         {
-            j = 2 * i;
-            while (j < (2 * N + 1)) 
+            //if dividable
+            if (A[i] % j == 0)
             {
-                second[j] += amount[i];
-//                printf("j: %d, i: %d, second[j]: %d and amount[i]: %d \n", j, i, second[j], amount[i]);
-                j = j + i;
+                //add divisors from count
+                divisoramt += amount[j];
+                if (A[i] / j != j)
+                {
+                    divisoramt += amount[A[i] / j];
+                }
             }
+            j++;
         }
+        // add divisors to the result array and go in to the next element
+        resarr[i] = N - divisoramt;
         i++;
     }
-    i = 0;
-    // add to result array
-    while (i < N) 
-    {
-        resarr[i] = N - amount[A[i]] - second[A[i]];
-//        printf("i: %d, resarr[i]: %d \n", i, resarr[i]);
-        i++;
-    }
+
     res.L = N;
     res.C = resarr;
     free(amount);
-    free(second);
 
     return res;
 }
