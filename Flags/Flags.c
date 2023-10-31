@@ -42,37 +42,63 @@
 // that, given a non-empty array A of N integers, returns the maximum number of flags that can be set on the peaks of the array.
 
 // this solution is 33%, fails in various cases. back to drawing board
+// -> could try makeing "bool matrix of the peaks -> checking is faster?"
+
+// this solution still only 40%, its most of the time 3 under of wanted, find out why?
+
 #include <math.h>
+#include <stdbool.h>
 
 int solution(int A[], int N) 
 {
-    int i = 1;
-    int peaks = 0;
+    long i = 1;
     int flags = 0;
+    int peaks = 0;
     int result = 0;
+    int traveldistance = 0;
+    bool mat[N];
 
-    // no peaks in less that 3
+    //if there is less than 3 point, there are no peaks
     if (N < 3)
         return 0;
-    // calculate amount of peaks, what also means amount of maximum possible flags? start can be "peak"
-    while (i < N)
+    //create bool array of peaks for fast check, set 1st and last elemnt to false since they arent peaks
+    while (i < N - 1)
     {
-        if (A[i] > fmax(A[i + 1], A[i - 1]))
-            peaks++;
+        if (A[i] > fmax(A[i - 1], A[i + 1]))
+        {
+            //this is a peak
+            mat[i] = true;
+            peaks += 1;
+        }
+        else 
+        {
+            //not a peak, set to false
+            mat[i] = false;
+        }
         i++;
     }
-    flags = peaks;
+    mat[0] = false;
+    mat[N - 1] = false;
+
+    //calculate most flags needed, min(sqrt(n), peaks)
+    flags = fmin(sqrt(N), peaks);
+    traveldistance = flags;
+    //iterate the bool, try to place flag on peak -> move by amount of flags to skip
     i = 1;
-    // count how many flags there can be
-    while (i < N && flags > 0)
+    while (i < N - 1 && flags > 0) 
     {
-        if (A[i] > fmax(A[i + 1], A[i - 1]))
+        if (mat[i])
         {
-            result++;
-            i = i + flags;
+            //place a flag, pump result, and travel by max flags
+            result += 1;
+            flags -= 1;
+            i += traveldistance;
         }
-        else
-            i++;
+        else 
+        {
+            //not a peak, go to next point
+            i += 1;
+        }
     }
     return result;
 }
