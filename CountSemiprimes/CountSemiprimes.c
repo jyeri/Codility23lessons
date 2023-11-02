@@ -41,51 +41,92 @@
 //      -> would cut down the cost of counting same primes again?
 //      -> in the end we gather the result arrays from this temporary array with simple bool check?
 
+// 2nd try:
+// -> utilize prime table like last exercise
+// -> make the array holding until X values instead of exact value for easy answear extraction
+// -> check stack overflow what in bugging in time complexity, since result is correct already
+
 // Variable notes:
 // N = Max number
 // M = How many in each array
 // P = *int where
 // Q = *int to
 
-struct Results solution(int N, int P[], int Q[], int M)
+//helper function to check if number actually is semiprime
+
+#include <string.h>
+
+// similar approach than to last one.
+
+struct Results solution(int N, int P[], int Q[], int M) 
 {
+    struct Results result;
 
-// -> allocate array of int from 0 to N?
-//      -> 0 = not checked, 1 = checked, not semiprime, 2 = semiprime?
-    int *semiprimes;
-    struct Results res;
-    int i = 0;
-    int j = 0;
-    int k = 0;
-
-    semiprimes = (int *)calloc(N * sizeof(int));
-    res.A = (int *)calloc(M * sizeof(int));
-    res.L = M;
-
-// iterate given arrays
-    while(k < M)
+    int *divisors;
+    int *counter;
+    int i;
+    int k;
+    divisors = (int *)malloc(sizeof(int)*(N+1));
+    counter = (int *)malloc(sizeof(int)*(N+1));
+    result.A = (int *)malloc(sizeof(int)*M);
+    memset(result.A, 0, sizeof(int)*M);
+    memset(divisors, 0, sizeof(int)*(N+1));
+    memset(counter, 0, sizeof(int)*(N+1));
+    
+    i = 2;
+    // we get divisors in range of 2 -> sqrt(N)
+    while (i*i <= N) 
     {
-        j = Q[k] - P[k];
-        while (j > 0)
+        if (divisors[i] == 0) 
         {
-            if (semiprimes[P[i]] == 0)
+            // we can always increment by i * i
+            k = i * i;
+            // printf("\nDivisors for multiplies of %d (not yet done):\n", i);
+            while (k <= N) 
             {
-                if (check_semi(P[i]) == 2)
-                    semiprimes[P[i]] = 2;
-                else
-                    semiprimes[P[i]] = 1;
+                if (divisors[k] == 0)
+                {
+                    // printf("divisors[%d] is %d \n", k, i);
+                    divisors[k] = i;
+                }
+                k += i;
             }
-            i++;
-            j--;
         }
-        i = 0;
-        k++;
+        i++;
     }
-// iterate once more to add checked into res A
-    i = 0;
-    while(i < M)
+    // printf("\n Next loop: \n\n");
+    i = 1;
+
+    // calculate how many counts there is for every number in ascending (add previous)
+    while (i <= N) 
     {
+        // printf("divisors[%d] is %d \n", i, divisors[i]);
+        // if there was divisors up by one (unless not semi)
+        if (divisors[i] != 0 && divisors[i / divisors[i]] == 0)
+        {
+            counter[i] = counter[i-1] + 1;
+            // printf("1: counter[%d] is %d \n", i, counter[i-1] + 1);
+        }
+        else
+        {
+            counter[i] = counter[i-1];
+            // printf("2: counter[%d] is %d \n", i, counter[i-1]);
+        }
+        i++;
     }
+    // printf("\n Next loop: \n\n");
+    i = 0;
+    // iterate whole array pair and save to result struct
+    while (i < M) 
+    {
+        // left is counter at end point Q[i] - start point P[i]
+        result.A[i] = counter[Q[i]] - counter[P[i] - 1];
+        // printf("res[%d] is %d - %d \n", i, counter[Q[i]], counter[P[i] - 1]);
+        i++;
+    }
+    
+    result.M = M;
+    return result;
 }
 
 
