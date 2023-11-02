@@ -24,34 +24,30 @@
 // --> change bool value
 // I = (N + I % M);
 
-#include <string.h>
+// second try:
+// -> way too slow
+// -->read the pdf about eucaledean method
+// ---> better freshenup on binary sos
 
-int solution(int N, int M)
+// answer was almost straight given in task pdf, took a while to understand why it works like this tho
+
+// gives us greatest common divisor
+int gcd(int a, int b)
 {
-    int i = 0;
-    int *eaten;
-    int res = 0;
+    // printf("a: %d, b: %d \n", a, b);
+    if (a == 0)
+        return b;
+    // if a != 0, we take mod, and do again
+    // a = b % a & b = a
+    return gcd(b % a, a);
+}
 
-    eaten = (int *)malloc(sizeof(int) * N);
-    memset(eaten, 0, sizeof(int) * N);
+int solution(int N, int M) 
+{
+    int res;
 
-    if (M < 2)
-        return N;
-
-    while (1)
-    {
- //       printf("eaten[%d]: %d\n", i, eaten[i]);
-        if (eaten[i] == 0) 
-        {
-            eaten[i] = 1;
-            res++;
-            i = ((M + i) % N);
-        }
-        else 
-        {
-            break;
-        }
-    }
-    free(eaten);
+    // divide the number of itegers by greatest common divisor
+    res = N / gcd(N, M);
+    // printf ("res: %d\n", res);
     return res;
 }
