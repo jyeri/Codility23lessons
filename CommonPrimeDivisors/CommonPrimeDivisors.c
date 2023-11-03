@@ -31,8 +31,9 @@
 //  -> take A[i] & B[i]
 //  -> take gcd
 //  -> take k = gcd(gcdvalue, a)
-//  -> as long as gcd of a / k ends up in 1
-//  -> same to be and ends up in 1
+//  -> as long as k = gcd(gcdvalue, a) ends up in positive
+//  -> do the exact same thing with value of b
+//  -> if they end up both to 1
 //      -> these have same prime divisors
 //  -> else they wont both end up to 1
 
