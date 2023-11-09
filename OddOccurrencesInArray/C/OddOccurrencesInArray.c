@@ -3,6 +3,7 @@
 // shift the bits with every number of array once
 // everytime same number occurs second time the bits are sifted back
 // so result should be only number which bits didnt get sifted back to 0.
+// now same with python
 
 int solution(int A[], int N) {
     // Implement your solution here

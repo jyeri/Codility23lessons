@@ -1,4 +1,4 @@
-#straight up C solution, binary
+#straight up C solution, binary way
 def solution(A):
     ret = 0
 
