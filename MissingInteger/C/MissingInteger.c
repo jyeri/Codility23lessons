@@ -1,34 +1,3 @@
-#include <stdbool.h>
-#include <stdio.h>
-
-// Write a function:
-// 
-// int solution(int A[], int N);
-// 
-// that, given an array A of N integers, returns the smallest positive integer (greater than 0) that does not occur in A.
-
-// first thought is iterate array, and pump up the holder every time u see holder number in array. 
-// problem with this: then you would have to reiterate again everytime you see the holder in array.
-// Second thought is some how check what is missing between 0 and A[0], but same problem occurs.
-
-// trying first with simplest method, got 66%
-
-// int solution(int A[], int N)
-// {
-//     int x = 0;
-//     int hold = 1;
-//     while (x < N)
-//     {
-//         if (A[x] == hold)
-//         {
-//             hold++;
-//             x = -1;
-//         }
-//         x++;
-//     }
-//     return hold;
-// }
-
 // second try i will try to cut down the iterations
 // can cut down iterations making bool map of 0 to N numbers (1st iteration)
 // then making map[x] = true for all positive integers (2nd iteration)
