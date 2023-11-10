@@ -16,13 +16,17 @@
 
 //result is  88%, there is still some kind of timeout with large
 
+// now 100%, modified helper function to while loop and only use it once after primary loop.
+
 
 struct Results {
   int * C;
   int L; // Length of the array
 };
 
-int *maxcount(int *res, int N, int max);
+// you can write to stdout for debugging purposes, e.g.
+// printf("this is a debug message\n");
+
 
 struct Results solution(int N, int A[], int M) {
     // Implement your solution here
@@ -30,41 +34,37 @@ struct Results solution(int N, int A[], int M) {
     int *res;
     int x = 0;
     int max = 0;
+    int increase = 0;
 
-    res = (int *)malloc(sizeof(int) * N);
-    while (x < N)
-    {
-        res[x] = 0;
-        x++;
-    }
-    x = 0;
+    res = (int *)calloc(N + 1, sizeof(int));
 
     while (x < M + 1)
     {
-        if (A[x] == N + 1)
+//        printf("Current A[%d]: %d \n", x, A[x]);
+        if (A[x] > 0 && A[x] < N + 1)
         {
-            res = maxcount(res, N, max);
-        }
-        else if (A[x] > 0 && A[x] < N + 1)
-        {
+            if (res[A[x] - 1] < increase)
+                res[A[x] - 1] = increase;
             res[A[x] - 1]++;
             if (res[A[x] - 1] > max)
                 max++;
         }
+        if (A[x] == N + 1)
+        {
+            increase = max;
+        }
         x++;
     }
+    x = 0;
+    while (x < N)
+    {
+        if (res[x] < increase)
+            res[x] = increase;
+//        printf("RES[%d]: %d \n", x, res[x]);
+        x++;
+    }
+    res[x] = '\0';
     result.C = res;
     result.L = N;
     return result;
-}
-
-int *maxcount(int *res, int N, int max)
-{
-    int x = 0;
-    while (x < N + 1)
-    {
-        res[x] = max;
-        x++;
-    }
-    return res;
 }
