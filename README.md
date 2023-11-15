@@ -30,7 +30,7 @@ Lesson 6 (Sorting):
     1. Distinct 100%, Python & C
     2. MaxProductOfThree 100%, Python & C
     3. Triangle 100%, Python & C
-    4. NumberOfDiscIntersections 75%, only C for now
+    4. NumberOfDiscIntersections 100%, Python & C, Still needs to be redone to understand what i have done
 
 Lesson 7 (Stacks and Queues)
     1. Brackets 100%, only C for now
