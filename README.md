@@ -58,9 +58,9 @@ Lesson 6 (Sorting):
 
 Lesson 7 (Stacks and Queues)
 
-    1. Brackets 100%, only C for now
+    1. Brackets 100%, Python & C
     
-    2. Fish 100%, only C for now
+    2. Fish 100%, Python & C
     
     3. Nesting 100%, only C for now
     
